@@ -37,5 +37,14 @@ jobs:
           git config --global user.email "actions@github.com"
           git remote add source ../source
           git fetch source
-          git merge source/main --allow-unrelated-histories
+          
+          # 尝试合并，如果冲突则接受源仓库的所有更改
+          if ! git merge source/main --allow-unrelated-histories; then
+            # 标记所有冲突文件为“使用源仓库版本”
+            git checkout --theirs .
+            git add -A
+            # 提交冲突解决方案
+            git commit -m "Merge source/main: Resolved conflicts by accepting source changes"
+          fi
+          
           git push origin main
