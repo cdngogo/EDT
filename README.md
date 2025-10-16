@@ -15,6 +15,14 @@
 
 修改后的代码文件为 `_worker2.js`
 
+**生成补丁**：
+
+```bash
+diff -u _worker.js _worker2.js > worker.patch
+// 或者
+git diff --no-index _worker.js _worker2.js > worker.patch
+```
+
 **声明：本修改不负责维护，一切错误请自行解决。如果没有代码动手能力，建议用CM大佬的源代码进行搭建**
 
 # 🚀 edgetunnel 原仓库说明
