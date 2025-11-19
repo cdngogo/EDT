@@ -1447,11 +1447,11 @@ async function 请求优选API(urls, 默认端口 = '443', 超时时间 = 3000) 
 				        const country = countryIdx > -1 ? cols[countryIdx] : ''; // 提取国家信息
 				        const city = cityIdx > -1 ? cols[cityIdx] : ''; // 提取城市信息
 				        const speed = speedIdx > -1 ? cols[speedIdx] : ''; // 提取速度信息
-				        const hasDetailedInfo = country && city && speed; // 如果存在国家和城市，则输出 国家 | 城市 | 速度 的节点备注
-				        if (hasDetailedInfo) {
+				        const hasDetailedInfo = country && city && speed;
+				        if (hasDetailedInfo) { // 如果存在全部信息，则输出 国家 | 城市 | 速度 的节点备注
 				            results.add(`${wrappedIP}:${cols[portIdx]}#${country} | ${city} | ${speed}MB/s`);
-				        } else {
-				            results.add(`${wrappedIP}:${cols[portIdx]}#${cols[remarkIdx]}`); // 否则，回退到使用原始的 remarkIdx 格式
+				        } else { // 否则，回退到使用原始的 remarkIdx 格式
+				            results.add(`${wrappedIP}:${cols[portIdx]}#${cols[remarkIdx]}`);
 				        }
 				    });
                 } else if (headers.some(h => h.includes('IP')) && headers.some(h => h.includes('延迟')) && headers.some(h => h.includes('下载速度'))) {
