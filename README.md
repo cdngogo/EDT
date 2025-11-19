@@ -1,30 +1,30 @@
 # 🚀 edgetunnel 2.0
 
-## 有一处小修改, 约1420行
+## 有一处小修改, 约1040行
 
 ```js
-        if (headers.includes('IP地址') && headers.includes('端口') && headers.includes('数据中心')) {
-            const ipIdx = headers.indexOf('IP地址');
-            const portIdx = headers.indexOf('端口');
-            const remarkIdx = headers.indexOf('国家') > -1 ? headers.indexOf('国家') :
-                headers.indexOf('城市') > -1 ? headers.indexOf('城市') : headers.indexOf('数据中心');
-            const countryIdx = headers.findIndex(h => h.includes('国家'));
-            const cityIdx = headers.findIndex(h => h.includes('城市'));
-            const speedIdx = headers.findIndex(h => h.includes('下载速度'));
-            dataLines.forEach(line => {
-                const cols = line.split(',').map(c => c.trim());
-                const wrappedIP = IPV6_PATTERN.test(cols[ipIdx]) ? `[${cols[ipIdx]}]` : cols[ipIdx];
-                const country = countryIdx > -1 ? cols[countryIdx] : ''; // 提取国家信息
-                const city = cityIdx > -1 ? cols[cityIdx] : ''; // 提取城市信息
-                const speed = speedIdx > -1 ? cols[speedIdx] : ''; // 提取速度信息
-                const hasDetailedInfo = country && city && speed;
-                if (hasDetailedInfo) { // 如果存在全部信息，则输出 国家 | 城市 | 速度 的节点备注
-                    results.add(`${wrappedIP}:${cols[portIdx]}#${country} | ${city} | ${speed}MB/s`);
-                } else { // 否则，回退到使用原始的 remarkIdx 格式
-                    results.add(`${wrappedIP}:${cols[portIdx]}#${cols[remarkIdx]}`);
-                }
-            });
+if (headers.includes('IP地址') && headers.includes('端口') && headers.includes('数据中心')) {
+    const ipIdx = headers.indexOf('IP地址');
+    const portIdx = headers.indexOf('端口');
+    const remarkIdx = headers.indexOf('国家') > -1 ? headers.indexOf('国家') :
+        headers.indexOf('城市') > -1 ? headers.indexOf('城市') : headers.indexOf('数据中心');
+    const countryIdx = headers.findIndex(h => h.includes('国家'));
+    const cityIdx = headers.findIndex(h => h.includes('城市'));
+    const speedIdx = headers.findIndex(h => h.includes('下载速度'));
+    dataLines.forEach(line => {
+        const cols = line.split(',').map(c => c.trim());
+        const wrappedIP = IPV6_PATTERN.test(cols[ipIdx]) ? `[${cols[ipIdx]}]` : cols[ipIdx];
+        const country = countryIdx > -1 ? cols[countryIdx] : ''; // 提取国家信息
+        const city = cityIdx > -1 ? cols[cityIdx] : ''; // 提取城市信息
+        const speed = speedIdx > -1 ? cols[speedIdx] : ''; // 提取速度信息
+        const hasDetailedInfo = country && city && speed;
+        if (hasDetailedInfo) { // 如果存在全部信息，则输出 国家 | 城市 | 速度 的节点备注
+            results.add(`${wrappedIP}:${cols[portIdx]}#${country} | ${city} | ${speed}MB/s`);
+        } else { // 否则，回退到使用原始的 remarkIdx 格式
+            results.add(`${wrappedIP}:${cols[portIdx]}#${cols[remarkIdx]}`);
         }
+    });
+}
 ```
 
 ![后台页面](./img.png)
